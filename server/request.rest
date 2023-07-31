@@ -1,0 +1,14 @@
+GET http://localhost:3001/movie
+###
+GET http://localhost:3001/movie/64c7b195f8993a6affc510fd
+###
+POST http://localhost:3001/movie/new
+Content-Type: application/json
+
+{
+    "name": "Confidential",
+    "description": "Decription",
+    "rating": 3,
+    "thumbnail": "http://localhost:3001/images/movie-200x200.jpg",
+    "originalUrl": "http://localhost:3001/images/movie-hd.jpg"
+}
