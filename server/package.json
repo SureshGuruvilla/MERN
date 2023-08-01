@@ -2,7 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "npm i",
     "start": "nodemon index.ts"

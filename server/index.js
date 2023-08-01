@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import movieRouter from "./routes/Movie";
-import dbConnect from "./db/db"
+import movieRouter from "./routes/Movie.js";
+import dbConnect from "./db/db.js"
 import cors from 'cors';
 
 const app = express();

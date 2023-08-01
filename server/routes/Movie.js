@@ -1,9 +1,9 @@
 import express from "express";
-import Movie from "../models/Movie";
+import Movie from "../models/Movie.js";
 
 const router = express.Router();
 
-router.get("/", async (req: any, res: any) => {
+router.get("/", async (req, res) => {
   try {
     const movies = await Movie.find();
     res.status(200).json(movies);
@@ -13,7 +13,7 @@ router.get("/", async (req: any, res: any) => {
     res.status(500);
   }
 });
-router.get("/:id", async (req: any, res: any) => {
+router.get("/:id", async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
     if(movie) res.status(200).json(movie);
@@ -24,7 +24,7 @@ router.get("/:id", async (req: any, res: any) => {
     res.status(500);
   }
 });
-router.post("/new", async (req: any, res: any) => {
+router.post("/new", async (req, res) => {
   try {
     const movie = new Movie({
       name: req.body.name,
