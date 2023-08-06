@@ -1,0 +1,44 @@
+import express from "express";
+import Movie from "../models/Movie";
+import { Request, Response } from "express";
+import CustomError, { CustomErrorType } from "../util/CustomError";
+import handleAsyncError from "../util/HandleAsyncError";
+const router = express.Router();
+
+router.get(
+  "/",
+  handleAsyncError(async (req: Request, res: Response) => {
+    const movies = await Movie.find();
+    res.status(200).json(movies);
+  })
+);
+router.get(
+  "/:id",
+  handleAsyncError(async (req: Request, res: Response, next: any) => {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) {
+      const error = new CustomError({
+        statusCode: 400,
+        message: "No data found",
+      });
+      next(error);
+    }
+    res.status(200).json(movie);
+  })
+);
+router.post(
+  "/new",
+  handleAsyncError(async (req: Request, res: Response) => {
+    const movie = new Movie({
+      name: req.body.name,
+      description: req.body.description,
+      rating: req.body.rating,
+      thumbnail: req.body.thumbnail,
+      originalUrl: req.body.originalUrl,
+    });
+    await movie.save();
+    res.status(200).json(movie);
+  })
+);
+
+export default router;
