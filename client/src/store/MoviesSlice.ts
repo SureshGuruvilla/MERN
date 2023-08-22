@@ -23,16 +23,16 @@ export const moviesSlice = createSlice({
   initialState,
   reducers: {
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchMoviesAsyncThunk.pending, (state, action) => {
+  extraReducers: (builder:any) => {
+    builder.addCase(fetchMoviesAsyncThunk.pending, (state:any, _action:any) => {
       state.isLoading = true
       state.movies = []
     })
-    builder.addCase(fetchMoviesAsyncThunk.fulfilled, (state, action) => {
+    builder.addCase(fetchMoviesAsyncThunk.fulfilled, (state:any, action:any) => {
       state.movies = action.payload
       state.isLoading = false
     })
-    builder.addCase(fetchMoviesAsyncThunk.rejected, (state, action) => {
+    builder.addCase(fetchMoviesAsyncThunk.rejected, (state:any, _action:any) => {
       state.isLoading = false
       state.movies = []
     })
