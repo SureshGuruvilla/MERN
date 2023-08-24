@@ -1,14 +1,21 @@
 GET http://localhost:3001/movie
 ###
-GET http://localhost:3001/movie/64c7e1bc34d4e690038faee0
+GET http://localhost:3001/movie/64c7e1bc34d4e690038faee1
 ###
-POST http://localhost:3001/movie/new
+POST http://localhost:3001/movie/
 Content-Type: application/json
 
 {
     "name": "Confidential",
     "description": "Decription",
-    # "rating": 5,
+    "rating": 5,
     "thumbnail": "http://localhost:3001/images/movie-200x200.jpg",
     "originalUrl": "http://localhost:3001/images/movie-hd.jpg"
+}
+###
+PATCH http://localhost:3001/movie/64c7e1bc34d4e690038faee9
+Content-Type: application/json
+
+{
+    "rating": 2
 }

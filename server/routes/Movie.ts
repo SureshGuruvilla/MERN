@@ -1,7 +1,7 @@
 import express from "express";
 import Movie from "../models/Movie";
 import { Request, Response } from "express";
-import CustomError, { CustomErrorType } from "../util/CustomError";
+import CustomError from "../util/CustomError";
 import handleAsyncError from "../util/HandleAsyncError";
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.get(
     const movie = await Movie.findById(req.params.id);
     if (!movie) {
       const error = new CustomError({
-        statusCode: 400,
+        statusCode: 404,
         message: "No data found",
       });
       next(error);
@@ -27,7 +27,7 @@ router.get(
   })
 );
 router.post(
-  "/new",
+  "/",
   handleAsyncError(async (req: Request, res: Response) => {
     const movie = new Movie({
       name: req.body.name,
@@ -40,5 +40,21 @@ router.post(
     res.status(200).json(movie);
   })
 );
-
+router.patch(
+  "/:id",
+  handleAsyncError(async (req: Request, res: Response, next: any) => {
+    const movieUpdate = await Movie.updateOne(
+      { _id: req.params.id },
+      { ...req.body }
+    );
+    if (movieUpdate.matchedCount !== 1) {
+      const error = new CustomError({
+        statusCode: 404,
+        message: "No data found",
+      });
+      return next(error);
+    }
+    res.status(200).json(movieUpdate);
+  })
+);
 export default router;
